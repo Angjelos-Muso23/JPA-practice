@@ -1,7 +1,10 @@
 package com.lhind.repository;
 
 import com.lhind.model.entity.UserDetails;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserDetailsRepository extends Repository<UserDetails, Long> {
+@Repository
+public interface UserDetailsRepository extends JpaRepository<UserDetails, Long> {
     // No additional functions for now
 }

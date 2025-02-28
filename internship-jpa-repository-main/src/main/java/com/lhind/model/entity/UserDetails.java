@@ -1,6 +1,14 @@
 package com.lhind.model.entity;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "user_details")
@@ -22,9 +30,9 @@ public class UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    // @OneToOne
-    // @JoinColumn(name = "user_id", referencedColumnName = "id")
-    // private User user;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private Users user;
 
     public Long getId() {
         return id;

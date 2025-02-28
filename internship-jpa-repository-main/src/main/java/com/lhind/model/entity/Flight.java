@@ -1,7 +1,10 @@
 package com.lhind.model.entity;
 
+import com.lhind.model.enums.Status;
 import jakarta.persistence.*;
+
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "flight")
@@ -31,8 +34,12 @@ public class Flight {
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrivalDate;
 
-    @Column(name = "status")
-    private String status;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
+
+    @OneToMany(mappedBy = "flight")
+    private List<Booking> bookings;
 
     public Long getId() {
         return id;
@@ -90,11 +97,19 @@ public class Flight {
         this.arrivalDate = arrivalDate;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }

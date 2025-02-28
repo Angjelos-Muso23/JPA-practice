@@ -2,12 +2,9 @@ package com.lhind.model.entity;
 
 import jakarta.persistence.*;
 
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "allUsers", query = "SELECT u FROM User u")
-})
-@Table(name = "user")
-public class User {
+import java.util.List;
+
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +20,18 @@ public class User {
     @Column(name = "role", nullable = false)
     private String role;
 
-    // @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    // private UserDetails userDetails;
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private UserDetails userDetails;
+
+    @OneToMany(mappedBy = "user")
+    private List<Booking> bookings;
 
     public Long getId() {
         return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -52,6 +56,22 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }
 

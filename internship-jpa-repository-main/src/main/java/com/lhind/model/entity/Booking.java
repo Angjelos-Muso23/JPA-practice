@@ -1,6 +1,8 @@
 package com.lhind.model.entity;
 
+import com.lhind.model.enums.Status;
 import jakarta.persistence.*;
+
 import java.util.Date;
 
 @Entity
@@ -14,8 +16,17 @@ public class Booking {
     @Temporal(TemporalType.DATE)
     private Date bookingDate;
 
-    @Column(name = "status")
-    private String status;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;
+
+    @ManyToOne
+    @JoinColumn(name = "flight_id", nullable = false)
+    private Flight flight;
 
     public Long getId() {
         return id;
@@ -33,12 +44,28 @@ public class Booking {
         this.bookingDate = bookingDate;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 }
 
