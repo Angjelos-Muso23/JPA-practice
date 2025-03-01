@@ -8,6 +8,33 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
+    public static Users toEntity(UsersResource resource) {
+        if (resource == null) return null;
+
+        Users user = new Users();
+        user.setUsername(resource.username());
+        user.setPassword(resource.password());
+        user.setRole(resource.role());
+
+        if (resource.userDetailsResource() != null) {
+            user.setUserDetails(toUserDetailsEntity(resource.userDetailsResource()));
+        }
+
+        return user;
+    }
+
+    private static UserDetails toUserDetailsEntity(UserDetailsResource resource) {
+        if (resource == null) return null;
+
+        UserDetails userDetails = new UserDetails();
+        userDetails.setFirstName(resource.firstName());
+        userDetails.setLastName(resource.lastName());
+        userDetails.setEmail(resource.email());
+        userDetails.setPhoneNumber(resource.phoneNumber());
+
+        return userDetails;
+    }
+
     public static void updateUserFromResource(UsersResource resource, Users user) {
         if (resource == null || user == null) return;
 

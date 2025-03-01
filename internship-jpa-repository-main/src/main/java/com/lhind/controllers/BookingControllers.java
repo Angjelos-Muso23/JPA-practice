@@ -24,12 +24,9 @@ public class BookingControllers {
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<Void> createBooking(@RequestBody final Booking booking) {
-        if (bookingRepository.existsById(booking.getId())) {
-            bookingServices.create(booking);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<Void> createBooking(@RequestBody final BookingResource booking) {
+        bookingServices.create(booking);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(produces = "application/json")

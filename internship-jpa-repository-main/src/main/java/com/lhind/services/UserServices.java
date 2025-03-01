@@ -31,11 +31,12 @@ public class UserServices {
         return userRepository.findByBookingsFlight_Id(flightId).stream().toList();
     }
 
-    public void create(Users user) {
+    public void create(UsersResource resource) {
+        Users user = UserMapper.toEntity(resource);
         userRepository.save(user);
     }
 
-    public void update(Long userId, UsersResource userResource) {
+    public void save(final Long userId, final UsersResource userResource) {
         userRepository.findById(userId).ifPresent(user -> {
             userMapper.updateUserFromResource(userResource, user);
             userRepository.save(user);

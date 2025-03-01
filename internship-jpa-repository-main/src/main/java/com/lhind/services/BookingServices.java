@@ -35,7 +35,8 @@ public class BookingServices {
         return bookingRepository.findByUserId(flight_id).stream().toList();
     }
 
-    public void create(Booking booking) {
+    public void create(BookingResource resource) {
+        Booking booking = BookingMapper.toEntity(resource);
         bookingRepository.save(booking);
     }
 

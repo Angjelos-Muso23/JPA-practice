@@ -2,6 +2,7 @@ package com.lhind.controllers;
 
 import com.lhind.model.entity.Flight;
 import com.lhind.model.resource.FlightResource;
+import com.lhind.model.resource.UsersResource;
 import com.lhind.repository.FlightRepository;
 import com.lhind.services.FlightServices;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +26,9 @@ public class FlightControllers {
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<Void> createFlights(@RequestBody final Flight flight) {
-        if (flightRepository.existsById(flight.getId())) {
-            flightServices.create(flight);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<Void> createFlights(@RequestBody final FlightResource flight) {
+        flightServices.create(flight);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(produces = "application/json")
@@ -49,7 +47,7 @@ public class FlightControllers {
         return ResponseEntity.ok(flightServices.getAllFlightByDepartureDateAndOrigin(departureDate, origin));
     }
 
-    @PutMapping(path = "{flightId}", consumes = "application/json", produces = "application/json")
+    @PutMapping(path = "/{flightId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Void> updateFlight(@PathVariable("flightId") final Long flightId, @RequestBody final FlightResource flight) {
         flightServices.update(flightId, flight);
         return ResponseEntity.noContent().build();

@@ -6,6 +6,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BookingMapper {
+    public static Booking toEntity(BookingResource resource) {
+        if (resource == null) return null;
+
+        Booking booking = new Booking();
+        booking.setBookingDate(resource.bookingDate());
+        booking.setStatus(resource.status());
+        booking.setUser(resource.user());
+        booking.setFlight(resource.flight());
+
+        return booking;
+    }
     public static void updateBookingFromResource(BookingResource resource, Booking booking) {
         if (resource == null || booking == null) return;
 

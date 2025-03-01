@@ -32,7 +32,8 @@ public class FlightServices {
         return flightRepository.findByDepartureDateAndOrigin(departureDate, origin).stream().toList();
     }
 
-    public void create(Flight flight) {
+    public void create(FlightResource resource) {
+        Flight flight = FlightMapper.toEntity(resource);
         flightRepository.save(flight);
     }
 

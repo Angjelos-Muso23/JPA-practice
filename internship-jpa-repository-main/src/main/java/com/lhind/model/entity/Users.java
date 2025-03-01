@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
+@Table(name = "users")
 public class Users {
 
     @Id
@@ -20,7 +22,7 @@ public class Users {
     @Column(name = "role", nullable = false)
     private String role;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserDetails userDetails;
 
     @OneToMany(mappedBy = "user")

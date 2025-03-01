@@ -24,8 +24,8 @@ public class UserControllers {
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<Void> createUser(@RequestBody final Users user) {
-        if (userRepository.existsById(user.getId())) {
+    public ResponseEntity<Void> createUser(@RequestBody final UsersResource user) {
+        if (!userRepository.existsByUsername(user.username())) {
             userServices.create(user);
             return ResponseEntity.noContent().build();
         }
@@ -48,9 +48,9 @@ public class UserControllers {
         return ResponseEntity.ok(userServices.getAllUsersByFlight(flightId));
     }
 
-    @PutMapping(path = "{userId}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Void> updateUser(@PathVariable("userId") final Long userId, @RequestBody final UsersResource user) {
-        userServices.update(userId, user);
+    @PutMapping(path = "/{userId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Void> updateEmployee(@PathVariable("userId") final Long userId, @RequestBody final UsersResource usersResource) {
+        userServices.save(userId, usersResource);
         return ResponseEntity.noContent().build();
     }
 
