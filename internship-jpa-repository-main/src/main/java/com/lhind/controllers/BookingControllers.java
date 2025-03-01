@@ -24,7 +24,7 @@ public class BookingControllers {
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<Void> createUser(@RequestBody final Booking booking) {
+    public ResponseEntity<Void> createBooking(@RequestBody final Booking booking) {
         if (bookingRepository.existsById(booking.getId())) {
             bookingServices.create(booking);
             return ResponseEntity.noContent().build();
@@ -38,7 +38,7 @@ public class BookingControllers {
     }
 
     @GetMapping(path = "/user/{userId}/booking/{bookingId}", produces = "application/json")
-    public ResponseEntity<Booking> getFlightById(@PathVariable("userId") final Long userId, @PathVariable("bookingId") final Long bookingId) {
+    public ResponseEntity<Booking> getBookingByIdForUser(@PathVariable("userId") final Long userId, @PathVariable("bookingId") final Long bookingId) {
         return bookingServices.getBookingByIdForUser(bookingId, userId).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

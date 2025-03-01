@@ -25,7 +25,7 @@ public class FlightControllers {
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<Void> createUser(@RequestBody final Flight flight) {
+    public ResponseEntity<Void> createFlights(@RequestBody final Flight flight) {
         if (flightRepository.existsById(flight.getId())) {
             flightServices.create(flight);
             return ResponseEntity.noContent().build();
