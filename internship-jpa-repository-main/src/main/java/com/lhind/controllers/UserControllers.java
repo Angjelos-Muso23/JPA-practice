@@ -1,13 +1,11 @@
 package com.lhind.controllers;
 
-import com.lhind.model.entity.Flight;
 import com.lhind.model.entity.Users;
 import com.lhind.model.resource.UsersResource;
 import com.lhind.repository.UserRepository;
 import com.lhind.services.UserServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 import static com.lhind.controllers.UserControllers.USERS_BASE_PATH;

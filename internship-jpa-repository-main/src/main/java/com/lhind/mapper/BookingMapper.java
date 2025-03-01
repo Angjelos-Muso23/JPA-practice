@@ -1,9 +1,7 @@
 package com.lhind.mapper;
 
 import com.lhind.model.entity.Booking;
-import com.lhind.model.entity.Flight;
 import com.lhind.model.resource.BookingResource;
-import com.lhind.model.resource.FlightResource;
 import org.springframework.stereotype.Component;
 
 @Component

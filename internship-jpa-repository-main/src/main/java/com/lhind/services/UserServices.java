@@ -1,7 +1,6 @@
 package com.lhind.services;
 
 import com.lhind.mapper.UserMapper;
-import com.lhind.model.entity.Flight;
 import com.lhind.model.entity.Users;
 import com.lhind.model.resource.UsersResource;
 import com.lhind.repository.UserRepository;

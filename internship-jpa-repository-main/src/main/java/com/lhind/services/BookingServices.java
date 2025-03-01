@@ -2,9 +2,7 @@ package com.lhind.services;
 
 import com.lhind.mapper.BookingMapper;
 import com.lhind.model.entity.Booking;
-import com.lhind.model.entity.Users;
 import com.lhind.model.resource.BookingResource;
-import com.lhind.model.resource.FlightResource;
 import com.lhind.repository.BookingRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +23,7 @@ public class BookingServices {
         return bookingRepository.findAllByOrderByBookingDateDesc().stream().toList();
     }
 
-    Optional<Booking> getBookingByIdForUser(Long id, Long user_id) {
+    public Optional<Booking> getBookingByIdForUser(Long id, Long user_id) {
         return bookingRepository.findByIdAndUserId(id, user_id);
     }
 
@@ -48,7 +46,7 @@ public class BookingServices {
         });
     }
 
-    public void deleteBooking(Long bookingId) {
+    public void delete(Long bookingId) {
         if (bookingRepository.existsById(bookingId)) {
             bookingRepository.deleteById(bookingId);
         }

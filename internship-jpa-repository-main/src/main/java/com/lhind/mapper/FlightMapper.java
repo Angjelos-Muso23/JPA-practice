@@ -1,11 +1,7 @@
 package com.lhind.mapper;
 
 import com.lhind.model.entity.Flight;
-import com.lhind.model.entity.UserDetails;
-import com.lhind.model.entity.Users;
 import com.lhind.model.resource.FlightResource;
-import com.lhind.model.resource.UserDetailsResource;
-import com.lhind.model.resource.UsersResource;
 import org.springframework.stereotype.Component;
 
 @Component

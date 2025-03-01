@@ -2,7 +2,6 @@ package com.lhind.services;
 
 import com.lhind.mapper.FlightMapper;
 import com.lhind.model.entity.Flight;
-import com.lhind.model.entity.Users;
 import com.lhind.model.resource.FlightResource;
 import com.lhind.repository.FlightRepository;
 import org.springframework.stereotype.Service;
