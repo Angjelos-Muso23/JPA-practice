@@ -1,13 +1,12 @@
 package com.lhind.mapper;
 
 import com.lhind.model.entity.Flight;
-import com.lhind.model.entity.Users;
 import com.lhind.model.resource.FlightResource;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FlightMapper {
-    public static Flight toEntity(FlightResource resource) {
+    public Flight toEntity(FlightResource resource) {
         if (resource == null) return null;
 
         Flight flight = new Flight();
@@ -22,7 +21,21 @@ public class FlightMapper {
         return flight;
     }
 
-    public static void updateFlightFromResource(FlightResource resource, Flight flight) {
+    public FlightResource toResource(Flight flight) {
+        if (flight == null) return null;
+
+        return new FlightResource(
+            flight.getOrigin(),
+            flight.getDestination(),
+            flight.getAirline(),
+            flight.getFlightNumber(),
+            flight.getDepartureDate(),
+            flight.getArrivalDate(),
+            flight.getStatus()
+        );
+    }
+
+    public void updateFlightFromResource(FlightResource resource, Flight flight) {
         if (resource == null || flight == null) return;
 
         if (resource.origin() != null) flight.setOrigin(resource.origin());

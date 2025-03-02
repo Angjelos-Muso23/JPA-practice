@@ -24,40 +24,46 @@ public class BookingControllers {
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<Void> createBooking(@RequestBody final BookingResource booking) {
-        bookingServices.create(booking);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> createBooking(@RequestBody BookingResource bookingResource) {
+        bookingServices.create(bookingResource);
+        return ResponseEntity.ok("Booking created successfully");
     }
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Booking>> getAllBookings() {
+    public ResponseEntity<List<BookingResource>> getAllBookings() {
         return ResponseEntity.ok(bookingServices.getAllBookings());
     }
 
     @GetMapping(path = "/user/{userId}/booking/{bookingId}", produces = "application/json")
-    public ResponseEntity<Booking> getBookingByIdForUser(@PathVariable("userId") final Long userId, @PathVariable("bookingId") final Long bookingId) {
+    public ResponseEntity<BookingResource> getBookingByIdForUser(@PathVariable("userId") final Long userId, @PathVariable("bookingId") final Long bookingId) {
         return bookingServices.getBookingByIdForUser(bookingId, userId).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping(path = "/user/{userId}", produces = "application/json")
-    public ResponseEntity<List<Booking>> getAllBookingsByUser(@PathVariable("userId") final Long userId) {
+    public ResponseEntity<List<BookingResource>> getAllBookingsByUser(@PathVariable("userId") final Long userId) {
         return ResponseEntity.ok(bookingServices.getAllBookingsByUser(userId));
     }
 
-    @GetMapping(path = "/user/{flightId}", produces = "application/json")
-    public ResponseEntity<List<Booking>> getAllBookingsByFlight(@PathVariable("flightId") final Long flightId) {
+    @GetMapping(path = "/flight/{flightId}", produces = "application/json")
+    public ResponseEntity<List<BookingResource>> getAllBookingsByFlight(@PathVariable("flightId") final Long flightId) {
         return ResponseEntity.ok(bookingServices.getAllBookingsByFlight(flightId));
     }
 
     @PutMapping(path = "{bookingId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Void> updateBooking(@PathVariable("bookingId") final Long bookingId, @RequestBody final BookingResource booking) {
+        if (!bookingRepository.existsById(bookingId)) {
+            return ResponseEntity.notFound().build();
+        }
         bookingServices.update(bookingId, booking);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(path = "/{bookingId}", produces = "application/json")
     public ResponseEntity<Void> deleteBooking(@PathVariable("bookingId") final Long bookingId) {
+        if (!bookingRepository.existsById(bookingId)) {
+            return ResponseEntity.notFound().build();
+        }
         bookingServices.delete(bookingId);
         return ResponseEntity.noContent().build();
     }

@@ -6,7 +6,7 @@ import com.lhind.model.enums.Status;
 
 import java.util.Date;
 
-public record BookingResource(Date bookingDate, Status status, Users user, Flight flight) {
+public record BookingResource(Date bookingDate, Status status, Long userId, Long flightId) {
 
 }
 

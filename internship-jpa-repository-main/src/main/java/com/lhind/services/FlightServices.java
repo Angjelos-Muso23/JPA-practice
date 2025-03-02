@@ -20,20 +20,20 @@ public class FlightServices {
         this.flightMapper = flightMapper;
     }
 
-    public List<Flight> getAllFlights() {
-        return flightRepository.findAll().stream().toList();
+    public List<FlightResource> getAllFlights() {
+        return flightRepository.findAll().stream().map(flightMapper::toResource).toList();
     }
 
-    public Optional<Flight> getFlightById(Long flightId) {
-        return flightRepository.findById(flightId);
+    public Optional<FlightResource> getFlightById(Long flightId) {
+        return flightRepository.findById(flightId).map(flightMapper::toResource);
     }
 
-    public List<Flight> getAllFlightByDepartureDateAndOrigin(Date departureDate, String origin) {
-        return flightRepository.findByDepartureDateAndOrigin(departureDate, origin).stream().toList();
+    public List<FlightResource> getAllFlightByDepartureDateAndOrigin(Date departureDate, String origin) {
+        return flightRepository.findByDepartureDateAndOrigin(departureDate, origin).stream().map(flightMapper::toResource).toList();
     }
 
     public void create(FlightResource resource) {
-        Flight flight = FlightMapper.toEntity(resource);
+        Flight flight = flightMapper.toEntity(resource);
         flightRepository.save(flight);
     }
 

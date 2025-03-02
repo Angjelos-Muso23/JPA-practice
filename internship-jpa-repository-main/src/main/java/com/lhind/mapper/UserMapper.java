@@ -8,45 +8,40 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public static Users toEntity(UsersResource resource) {
-        if (resource == null) return null;
+    public UsersResource toResource(Users user) {
+        if (user == null) return null;
 
-        Users user = new Users();
-        user.setUsername(resource.username());
-        user.setPassword(resource.password());
-        user.setRole(resource.role());
-
-        if (resource.userDetailsResource() != null) {
-            user.setUserDetails(toUserDetailsEntity(resource.userDetailsResource()));
-        }
-
-        return user;
+        return new UsersResource(
+            user.getUsername(),
+            user.getPassword(),
+            user.getRole(),
+            toResource(user.getUserDetails())
+        );
     }
 
-    private static UserDetails toUserDetailsEntity(UserDetailsResource resource) {
-        if (resource == null) return null;
+    public UserDetailsResource toResource(UserDetails user) {
+        if (user == null) return null;
 
-        UserDetails userDetails = new UserDetails();
-        userDetails.setFirstName(resource.firstName());
-        userDetails.setLastName(resource.lastName());
-        userDetails.setEmail(resource.email());
-        userDetails.setPhoneNumber(resource.phoneNumber());
-
-        return userDetails;
+        return new UserDetailsResource(
+            user.getFirstName(),
+            user.getLastName(),
+            user.getEmail(),
+            user.getPhoneNumber()
+        );
     }
 
-    public static void updateUserFromResource(UsersResource resource, Users user) {
+    public void updateUserFromResource(UsersResource resource, Users user) {
         if (resource == null || user == null) return;
 
         if (resource.username() != null) user.setUsername(resource.username());
         if (resource.password() != null) user.setPassword(resource.password());
         if (resource.role() != null) user.setRole(resource.role());
-        if (resource.userDetailsResource() != null) {
-            updateUserDetailsFromResource(resource.userDetailsResource(), user.getUserDetails());
+        if (resource.userDetails() != null) {
+            updateUserDetailsFromResource(resource.userDetails(), user.getUserDetails());
         }
     }
 
-    public static void updateUserDetailsFromResource(UserDetailsResource resource, UserDetails userDetails) {
+    public void updateUserDetailsFromResource(UserDetailsResource resource, UserDetails userDetails) {
         if (resource == null || userDetails == null) return;
 
         if (resource.firstName() != null) userDetails.setFirstName(resource.firstName());
